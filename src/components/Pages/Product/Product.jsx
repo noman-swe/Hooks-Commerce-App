@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
 const Product = (props) => {
   //   console.log("props", props);
-  const { id, category, description, image, price, rating, title } = props;
+  const {
+    id,
+    category,
+    description,
+    image,
+    price,
+    rating,
+    title,
+    handleAddToCart,
+  } = props;
 
   return (
     <div>
@@ -27,7 +36,10 @@ const Product = (props) => {
         </div>
 
         <div className="flex justify-center items-center gap-10">
-          <button className="bg-indigo-600 shadow-sm rounded-full py-2 px-5 text-xs mb-5 text-white font-semibold">
+          <button
+            onClick={() => handleAddToCart(id)}
+            className="bg-indigo-600 shadow-sm rounded-full py-2 px-5 text-xs mb-5 text-white font-semibold"
+          >
             Add To Cart
           </button>
           <button className="bg-sky-600 shadow-sm rounded-full py-2 px-5 text-xs mb-5 text-white font-semibold">

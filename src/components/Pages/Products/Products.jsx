@@ -1,30 +1,9 @@
-import { useEffect, useReducer } from "react";
 import Product from "../Product/Product";
-import ProductFetcherReducer, {
-  initialState,
-} from "../../../reducers/ProductFetcherReducer";
-import axios from "axios";
 import { Loader } from "../../SharedComps/SharedComps";
+import useProducts from "../../../hooks/useProducts";
 
 const Products = () => {
-  const [state, dispatch] = useReducer(ProductFetcherReducer, initialState);
-
-  const fetcherMethod = () => {
-    axios
-      .get(`https://fakestoreapi.com/products`)
-      .then((res) => {
-        dispatch({ type: "FETCH_SUCCESS", payload: res.data });
-      })
-      .catch((error) => {
-        dispatch({ type: "FETCH_ERROR" });
-      });
-  };
-
-  useEffect(() => {
-    fetcherMethod();
-  }, []);
-
-  console.log(state);
+  const [state, dispatch, handleAddToCart] = useProducts();
 
   return (
     <div className="">
@@ -41,7 +20,11 @@ const Products = () => {
       {state.products && (
         <div className="grid grid-cols-3 gap-5 mx-2 my-4">
           {state.products.map((product) => (
-            <Product key={product.id} {...product} />
+            <Product
+              key={product.id}
+              {...product}
+              handleAddToCart={handleAddToCart}
+            />
           ))}
         </div>
       )}
